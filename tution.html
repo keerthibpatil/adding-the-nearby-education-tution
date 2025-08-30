@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuition Details Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .form-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .tuition-list {
+      width: 100%;
+      max-width: 600px;
+    }
+    .tuition-item {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 10px 0;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+    .tuition-item p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tuition Registration Form</h2>
+
+  <div class="form-box">
+    <form id="tuitionForm">
+      <label for="tuitionName">Tuition Name:</label>
+      <input type="text" id="tuitionName" placeholder="Enter tuition name" required>
+
+      <label for="location">Location / Area:</label>
+      <input type="text" id="location" placeholder="Enter nearby area" required>
+
+      <label for="maxAdmissions">Maximum Admissions:</label>
+      <input type="number" id="maxAdmissions" placeholder="Enter max number of students" required>
+
+      <label for="fees">Fees (in ₹):</label>
+      <input type="number" id="fees" placeholder="Enter tuition fees" required>
+
+      <label for="type">Type of Tuition:</label>
+      <select id="type" required>
+        <option value="">--Select Type--</option>
+        <option value="Math">Math Tuition</option>
+        <option value="Science">Science Tuition</option>
+        <option value="Language">Language Tuition</option>
+        <option value="Competitive Exams">Competitive Exam Tuition</option>
+        <option value="All Subjects">All Subjects Tuition</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="description">Description:</label>
+      <textarea id="description" rows="3" placeholder="Write what this tuition offers..." required></textarea>
+
+      <label>Class Range:</label>
+      <div style="display: flex; gap: 10px;">
+        <select id="classFrom" required>
+          <option value="">From</option>
+          <option value="Nursery">Nursery</option>
+          <option value="LKG">LKG</option>
+          <option value="UKG">UKG</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+        </select>
+        <select id="classTo" required>
+          <option value="">To</option>
+          <option value="Nursery">Nursery</option>
+          <option value="LKG">LKG</option>
+          <option value="UKG">UKG</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
+          <option value="11">Class 11</option>
+          <option value="12">Class 12</option>
+        </select>
+      </div>
+
+      <button type="submit">Add Tuition</button>
+    </form>
+  </div>
+
+  <h3>Available Tuitions</h3>
+  <div class="tuition-list" id="tuitionList"></div>
+
+  <script>
+    const form = document.getElementById('tuitionForm');
+    const tuitionList = document.getElementById('tuitionList');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const tuitionName = document.getElementById('tuitionName').value;
+      const location = document.getElementById('location').value;
+      const maxAdmissions = document.getElementById('maxAdmissions').value;
+      const fees = document.getElementById('fees').value;
+      const type = document.getElementById('type').value;
+      const description = document.getElementById('description').value;
+      const classFrom = document.getElementById('classFrom').value;
+      const classTo = document.getElementById('classTo').value;
+
+      if (tuitionName && location && maxAdmissions && fees && type && description && classFrom && classTo) {
+        const div = document.createElement('div');
+        div.classList.add('tuition-item');
+        div.innerHTML = `
+          <p><b>Tuition Name:</b> ${tuitionName}</p>
+          <p><b>Location:</b> ${location}</p>
+          <p><b>Maximum Admissions:</b> ${maxAdmissions}</p>
+          <p><b>Fees:</b> ₹${fees}</p>
+          <p><b>Type:</b> ${type}</p>
+          <p><b>Description:</b> ${description}</p>
+          <p><b>Class Range:</b> ${classFrom} to ${classTo}</p>
+        `;
+        tuitionList.appendChild(div);
+
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
